@@ -1,9 +1,8 @@
 import { useState } from "react";
+import './kanbanBoard.css'
 
 export default function KanbanBoard(props) {
-  //   const [taskName, setTaskName] = useState("");
-  //   const [tasks, setTasks] = useState([]);
-
+ 
   const stagesNames = ["Backlog", "To Do", "Ongoing", "Done"];
 
   const [taskName, setTaskName] = useState("");
@@ -65,11 +64,18 @@ export default function KanbanBoard(props) {
                         <span data-testid={`${taskId}-name`}>{task.name}</span>
                         <div className="icons">
                           <button
+                            data-testid={`${taskId}-backward`}
+                            className="icon-only x-small mx-2"
+                            disabled={i === 3}
+                          >
+                            <i className="material-icons">backward</i>
+                          </button>
+                          <button
                             data-testid={`${taskId}-forward`}
                             className="icon-only x-small mx-2"
                             disabled={i === 3}
                           >
-                            <i className="material-icons">arrow_forward</i>
+                            <i className="material-icons">forward</i>
                           </button>
                           <button
                             data-testid={`${taskId}-delete`}
