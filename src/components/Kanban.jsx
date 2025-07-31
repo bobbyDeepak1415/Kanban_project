@@ -19,6 +19,18 @@ function Kanban(props) {
     setNewTask("");
   };
 
+  const moveTask = (stageIndex,taskIndex,direction) => {
+
+    const updatedStages=[...stagesTasks]
+    const taskToMove=updatedStages[stageIndex][taskIndex]
+
+
+    updatedStages[stageIndex].splice(taskIndex,1)
+    updatedStages[stageIndex+direction].push(taskToMove)
+    setStagesTasks(updatedStages)
+    
+  };
+
   return (
     <div className="kanban">
       <div className="form_layout">
@@ -41,22 +53,25 @@ function Kanban(props) {
             return (
               <div className="container" key={index}>
                 <h4>{stage}</h4>
-                <ul className="taskItem">
+                <ul className="taskList">
                   {stagesTasks[index].map((task, taskIndex) => {
                     return (
-                      <div className="taskItem">
-                        <li>
-                          <h4>
-                            <div>
-                              <span>{task.name}</span>
-                              <div className="taskBtns">
-                                <button className="backBtn"> ◀</button>
-                                <button className="forwardBtn"> ▶</button>
-                              </div>
-                            </div>
-                          </h4>
-                        </li>
-                      </div>
+                      <li className="taskItem" key={taskIndex}>
+                        <div className="task_content">
+                          <span>{task.name}</span>
+                          <span className="taskBtns">
+                            <button onClick={moveTask} className="backBtn">
+                              ◀
+                            </button>
+                            <button onClick={moveTask} className="forwardBtn">
+                              ▶
+                            </button>
+                            <button  className="deleteBtn">
+                              X
+                            </button>
+                          </span>
+                        </div>
+                      </li>
                     );
                   })}
                 </ul>
