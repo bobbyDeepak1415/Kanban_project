@@ -31,6 +31,14 @@ function Kanban(props) {
     
   };
 
+  const handleDeleteTask=(stageIndex,taskIndex)=>{
+    const updatedStages=[...stagesTasks]
+    updatedStages[stageIndex].splice(taskIndex,1)
+    setStagesTasks(updatedStages)
+
+
+  }
+
   return (
     <div className="kanban">
       <div className="form_layout">
@@ -60,13 +68,25 @@ function Kanban(props) {
                         <div className="task_content">
                           <span>{task.name}</span>
                           <span className="taskBtns">
-                            <button onClick={moveTask} className="backBtn">
+                            <button
+                              onClick={() => moveTask(index, taskIndex, -1)}
+                              disabled={index === 0}
+                              
+                              className="backBtn"
+                            >
                               ◀
                             </button>
-                            <button onClick={moveTask} className="forwardBtn">
+                            <button
+                              onClick={() => moveTask(index, taskIndex, 1)}
+                              disabled={index === 3}
+                              className="forwardBtn"
+                            >
                               ▶
                             </button>
-                            <button  className="deleteBtn">
+                            <button
+                              onClick={() => handleDeleteTask(index,taskIndex)}
+                              className="deleteBtn"
+                            >
                               X
                             </button>
                           </span>
