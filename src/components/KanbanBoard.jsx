@@ -1,33 +1,34 @@
 import { useState } from "react";
-import './kanbanBoard.css'
+import "./kanbanBoard.css";
 
-export default function KanbanBoard(props) {
- 
+function KanbanBoard(props) {
   const stagesNames = ["Backlog", "To Do", "Ongoing", "Done"];
 
+  
+
   const [taskName, setTaskName] = useState("");
-  const [stagesTasks, setStagesTasks] = useState([[], [], [], []]); // 4 stages
+  const [stagesTasks, setStagesTasks] = useState([[], [], [], []]); 
 
   function handleAddTask(e) {
-    e.preventDefault(); // Prevent page reload
+    e.preventDefault(); 
     if (!taskName.trim()) return;
 
     const newTask = {
       name: taskName.trim(),
-      stage: 0, // Backlog stage
+      stage: 0, 
     };
 
     const updatedStages = [...stagesTasks];
-    updatedStages[0].push(newTask); // Add to stage 0 (Backlog)
+    updatedStages[0].push(newTask); 
     setStagesTasks(updatedStages);
-    setTaskName("");  }
+    setTaskName("");
+  }
 
   return (
     <div className="mt-20 layout-column justify-content-center align-items-center">
       <form
         className="mt-50 layout-row align-items-center justify-content-center"
-        onSubmit={handleAddTask}
-      >
+        >
         <input
           id="create-task-input"
           type="text"
@@ -36,9 +37,10 @@ export default function KanbanBoard(props) {
           data-testid="create-task-input"
           value={taskName}
           onChange={(e) => setTaskName(e.target.value)}
-        />
+          />
         <button
           type="submit"
+          onClick={handleAddTask}
           className="ml-30"
           data-testid="create-task-button"
         >
@@ -66,7 +68,7 @@ export default function KanbanBoard(props) {
                           <button
                             data-testid={`${taskId}-backward`}
                             className="icon-only x-small mx-2"
-                            disabled={i === 3}
+                            disabled={i === 0}
                           >
                             <i className="material-icons">backward</i>
                           </button>
@@ -96,3 +98,5 @@ export default function KanbanBoard(props) {
     </div>
   );
 }
+
+export default KanbanBoard;
